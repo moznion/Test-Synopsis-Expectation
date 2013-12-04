@@ -1,0 +1,14 @@
+=head1 NAME
+
+sample01 - It's really sample
+
+=head1 SYNOPSIS
+
+    1 + 1
+
+=for test-synopsis-detail
+2
+
+=head1 AUTHOR
+
+moznion E<lt>moznion@gmail.comE<gt>
