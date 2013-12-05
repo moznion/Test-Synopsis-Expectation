@@ -4,10 +4,9 @@ sample01 - It's really sample
 
 =head1 SYNOPSIS
 
-    1 + 1
-
-=for test-synopsis-detail
-2
+    my $sum;
+    $sum = 1; # => 1
+    ++$sum;   # => is 2
 
 =head1 AUTHOR
 
