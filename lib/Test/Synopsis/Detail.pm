@@ -28,16 +28,16 @@ sub _synopsis_ok {
     for my $expectation (@$expectations) {
         my $got      = eval $expectation->{code};     ## no critic
         my $expected = eval $expectation->{expected}; ## no critic
+        my $method   = $expectation->{method};
 
-        my $method = $expectation->{method};
         if ($method eq 'is') {
             Test::More::is($got, $expected);
-        }
-        elsif ($method eq 'isa') {
+        } elsif ($method eq 'isa') {
             Test::More::isa_ok($got, $expected);
-        }
-        elsif ($method eq 'like') {
+        } elsif ($method eq 'like') {
             Test::More::like($got, $expected);
+        } elsif ($method eq 'is_deeply') {
+            Test::More::is_deeply($got, $expected);
         }
     }
 }

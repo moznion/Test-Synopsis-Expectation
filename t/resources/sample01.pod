@@ -13,6 +13,10 @@ sample01 - It's really sample
 
     my $str = 'Hello, I love you'; # => like qr/ove/
 
+    my $obj = {
+        foo => ["bar", "baz"],
+    }; # => is_deeply { foo => ["bar", "baz"] };
+
 =head1 AUTHOR
 
 moznion E<lt>moznion@gmail.comE<gt>
