@@ -8,7 +8,7 @@ use File::Spec::Functions qw/catfile/;
 use Test::Synopsis::Detail;
 use Test::More;
 
-my $target_file = catfile($FindBin::Bin, 'resources', 'sample01.pod');
+my $target_file = catfile($FindBin::Bin, 'resources', 'basic.pod');
 synopsis_ok($target_file);
 
 done_testing;

@@ -1,6 +1,6 @@
 =head1 NAME
 
-sample01 - It's really sample
+basic - It's basic
 
 =head1 SYNOPSIS
 
