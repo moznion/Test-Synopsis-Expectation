@@ -36,6 +36,9 @@ sub _synopsis_ok {
         elsif ($method eq 'isa') {
             Test::More::isa_ok($got, $expected);
         }
+        elsif ($method eq 'like') {
+            Test::More::like($got, $expected);
+        }
     }
 }
 

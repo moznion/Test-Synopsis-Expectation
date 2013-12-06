@@ -11,6 +11,8 @@ sample01 - It's really sample
     use Compiler::Lexer;
     my $lexer = Compiler::Lexer->new; # => isa 'Compiler::Lexer'
 
+    my $str = 'Hello, I love you'; # => like qr/ove/
+
 =head1 AUTHOR
 
 moznion E<lt>moznion@gmail.comE<gt>
