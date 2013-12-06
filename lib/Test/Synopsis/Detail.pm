@@ -52,7 +52,7 @@ sub _analyze_expectations {
 
     my $lexer = Compiler::Lexer->new({verbose => 1});
 
-    my $code = '';    # target code for test
+    my $code = '';    # code for test
     my @expectations; # store expectations for test
     foreach my $line (split /\n\r?/, $target_code) {
         $code .= "$line\n";
