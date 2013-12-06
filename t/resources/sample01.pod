@@ -8,6 +8,9 @@ sample01 - It's really sample
     $sum = 1; # => 1
     ++$sum;   # => is 2
 
+    use Compiler::Lexer;
+    my $lexer = Compiler::Lexer->new; # => isa 'Compiler::Lexer'
+
 =head1 AUTHOR
 
 moznion E<lt>moznion@gmail.comE<gt>

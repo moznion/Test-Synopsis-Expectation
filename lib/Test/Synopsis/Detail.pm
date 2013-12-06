@@ -23,9 +23,7 @@ sub _synopsis_ok {
     my $parser = Test::Synopsis::Detail::Pod->new;
     $parser->parse_file($file);
 
-    my $lexer  = Compiler::Lexer->new({verbose => 1});
-    my $tokens = $lexer->tokenize($parser->{target_code});
-    my $expectations = _analyze_expectations($tokens);
+    my $expectations = _analyze_expectations($parser->{target_code});
 
     for my $expectation (@$expectations) {
         my $got      = eval $expectation->{code};     ## no critic
@@ -35,24 +33,31 @@ sub _synopsis_ok {
         if ($method eq 'is') {
             Test::More::is($got, $expected);
         }
+        elsif ($method eq 'isa') {
+            Test::More::isa_ok($got, $expected);
+        }
     }
 }
 
 sub _analyze_expectations {
-    my ($tokens) = @_;
+    my ($target_code) = @_;
 
-    my $line = 0;
+    my $lexer = Compiler::Lexer->new({verbose => 1});
+
     my $code = '';    # target code for test
     my @expectations; # store expectations for test
-    foreach my $token (@$tokens) {
-        if ($token->{name} eq 'Comment') {
-            # Not accept if it isn't on the same line as others
-            next if $token->{line} > $line;
+    foreach my $line (split /\n\r?/, $target_code) {
+        $code .= "$line\n";
 
+        my $tokens = $lexer->tokenize($line);
+
+        # Extract comment statement
+        # Tokens contain one comment token on a line, at the most
+        if (my ($comment) = grep {$_->{name} eq 'Comment'} @$tokens) {
             # Accept special comment for this module
             # e.g.
             #     # => is 42
-            my ($expectation) = $token->{data} =~ /#\s*=>\s*(.+)/;
+            my ($expectation) = $comment->{data} =~ /#\s*=>\s*(.+)/;
             next unless $expectation;
 
             # Accept test methods as string
@@ -66,15 +71,11 @@ sub _analyze_expectations {
                 'expected' => $expectation,
                 'code'     => $code,
             };
-        } else {
-            $code .= "$token->{data} "; # Stack code without comment
-            $line = $token->{line};
         }
     }
 
     return \@expectations;
 }
-
 1;
 __END__
 
