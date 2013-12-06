@@ -1,5 +1,6 @@
 package Test::Synopsis::Detail::Pod;
 use strict;
+use warnings;
 use parent qw/Pod::Simple::Methody/;
 
 sub new {
