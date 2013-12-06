@@ -11,8 +11,13 @@ our $VERSION = "0.01";
 our @EXPORT  = qw/synopsis_ok/;
 
 sub synopsis_ok {
-    my ($file) = @_;
-    return _synopsis_ok(__PACKAGE__->builder, $file);
+    my ($files) = @_;
+
+    $files = [$files] if ref $files ne 'ARRAY';
+
+    for my $file (@$files) {
+        _synopsis_ok(__PACKAGE__->builder, $file);
+    }
 }
 
 sub _synopsis_ok {
