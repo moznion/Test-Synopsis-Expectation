@@ -43,7 +43,7 @@
       },
       "runtime" : {
          "requires" : {
-            "Compiler::Lexer" : "0.16",
+            "Compiler::Lexer" : "0.17",
             "Pod::Simple::Methody" : "0",
             "Test::Builder::Module" : "0",
             "Test::More" : "0.98",
