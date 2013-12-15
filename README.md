@@ -5,6 +5,7 @@ Test::Synopsis::Detail - It's new $module
 # SYNOPSIS
 
     use Test::Synopsis::Detail;
+    my $sum = 1; # => 1
 
 # DESCRIPTION
 
