@@ -120,6 +120,8 @@ __END__
 
 =encoding utf-8
 
+=for stopwords isa yada-yada
+
 =head1 NAME
 
 Test::Synopsis::Expectation - Test SYNOPSIS code with expectations
