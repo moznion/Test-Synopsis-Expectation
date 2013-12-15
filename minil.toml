@@ -1,1 +1,2 @@
 name = "Test-Synopsis-Expectation"
+badges = ["travis", "coveralls"]
