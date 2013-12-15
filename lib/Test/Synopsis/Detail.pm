@@ -4,11 +4,12 @@ use strict;
 use warnings;
 use parent qw/Test::Builder::Module/;
 use Compiler::Lexer;
+use ExtUtils::Manifest qw/maniread/;
 use Test::More ();
 use Test::Synopsis::Detail::Pod;
 
 our $VERSION = "0.01";
-our @EXPORT  = qw/synopsis_ok/;
+our @EXPORT  = qw/all_synopsis_ok synopsis_ok/;
 
 my $prepared = '';
 
@@ -16,11 +17,18 @@ sub prepare {
     $prepared = shift;
 }
 
+sub all_synopsis_ok {
+    my $builder = __PACKAGE__->builder;
+    my @files   = _list_up_files_from_manifest($builder);
+    for my $file (@files) {
+        _synopsis_ok(__PACKAGE__->builder, $file);
+    }
+}
+
 sub synopsis_ok {
     my ($files) = @_;
 
     $files = [$files] if ref $files ne 'ARRAY';
-
     for my $file (@$files) {
         _synopsis_ok(__PACKAGE__->builder, $file);
     }
@@ -90,6 +98,16 @@ sub _analyze_expectations {
 
     return \@expectations;
 }
+
+sub _list_up_files_from_manifest {
+    my ($builder) = @_;
+
+    my $manifest = $ExtUtils::Manifest::MANIFEST;
+    if ( not -f $manifest ) {
+        $builder->plan( skip_all => "$manifest doesn't exist" );
+    }
+    return grep { m!\Alib/.*\.pm\Z! } keys %{ maniread() };
+}
 1;
 __END__
 
@@ -102,6 +120,7 @@ Test::Synopsis::Detail - It's new $module
 =head1 SYNOPSIS
 
     use Test::Synopsis::Detail;
+    my $sum = 1; # => 1
 
 =head1 DESCRIPTION
 
