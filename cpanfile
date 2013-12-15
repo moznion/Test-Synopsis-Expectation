@@ -1,4 +1,4 @@
-requires 'Compiler::Lexer', '0.16';
+requires 'Compiler::Lexer', '0.17';
 requires 'Pod::Simple::Methody';
 requires 'Test::Builder::Module';
 requires 'Test::More', '0.98';
