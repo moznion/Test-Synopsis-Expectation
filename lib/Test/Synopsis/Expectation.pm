@@ -45,19 +45,26 @@ sub _synopsis_ok {
     my $expectations = _analyze_expectations($parser->{target_code});
 
     for my $expectation (@$expectations) {
-        my $got      = eval $expectation->{code};     ## no critic
-        my $expected = eval $expectation->{expected}; ## no critic
-        my $method   = $expectation->{method};
+        _check($expectation);
+    }
+}
 
-        if ($method eq 'is') {
-            Test::More::is($got, $expected);
-        } elsif ($method eq 'isa') {
-            Test::More::isa_ok($got, $expected);
-        } elsif ($method eq 'like') {
-            Test::More::like($got, $expected);
-        } elsif ($method eq 'is_deeply') {
-            Test::More::is_deeply($got, $expected);
-        }
+sub _check {
+    package Test::Synopsis::Expectation::Sandbox;
+
+    # $_[0] is expectation
+    my $got      = eval $_[0]->{code};     ## no critic
+    my $expected = eval $_[0]->{expected}; ## no critic
+    my $method   = $_[0]->{method};
+
+    if ($method eq 'is') {
+        Test::More::is($got, $expected);
+    } elsif ($method eq 'isa') {
+        Test::More::isa_ok($got, $expected);
+    } elsif ($method eq 'like') {
+        Test::More::like($got, $expected);
+    } elsif ($method eq 'is_deeply') {
+        Test::More::is_deeply($got, $expected);
     }
 }
 
