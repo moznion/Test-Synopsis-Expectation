@@ -55,9 +55,9 @@ sub _analyze_expectations {
     my $code = '';    # code for test
     my @expectations; # store expectations for test
     foreach my $line (split /\n\r?/, $target_code) {
-        $code .= "$line\n";
-
         my $tokens = $lexer->tokenize($line);
+        next if (grep {$_->{name} eq 'ToDo'} @$tokens); # Ignore yada-yada operator
+        $code .= "$line\n";
 
         # Extract comment statement
         # Tokens contain one comment token on a line, at the most
