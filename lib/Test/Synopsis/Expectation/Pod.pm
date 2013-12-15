@@ -30,7 +30,7 @@ sub handle_text {
 }
 
 sub start_head1 {
-    my($self, $attrs) = @_;
+    my($self) = @_;
 
     $self->{in_head1}    = 1;
     $self->{in_synopsis} = 0;
@@ -43,7 +43,7 @@ sub end_head1 {
 }
 
 sub start_Verbatim {
-    my($self, $attrs) = @_;
+    my($self) = @_;
 
     $self->{in_verbatim} = 1;
 }

@@ -21,7 +21,7 @@ sub all_synopsis_ok {
     my $builder = __PACKAGE__->builder;
     my @files   = _list_up_files_from_manifest($builder);
     for my $file (@files) {
-        _synopsis_ok(__PACKAGE__->builder, $file);
+        _synopsis_ok($file);
     }
 }
 
@@ -30,12 +30,12 @@ sub synopsis_ok {
 
     $files = [$files] if ref $files ne 'ARRAY';
     for my $file (@$files) {
-        _synopsis_ok(__PACKAGE__->builder, $file);
+        _synopsis_ok($file);
     }
 }
 
 sub _synopsis_ok {
-    my ($builder, $file) = @_;
+    my ($file) = @_;
 
     local $Test::Builder::Level = $Test::Builder::Level + 1;
 
