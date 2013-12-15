@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/moznion/Test-Synopsis-Expectation.png?branch=master)](https://travis-ci.org/moznion/Test-Synopsis-Expectation) [![Coverage Status](https://coveralls.io/repos/moznion/Test-Synopsis-Expectation/badge.png?branch=master)](https://coveralls.io/r/moznion/Test-Synopsis-Expectation?branch=master)
 # NAME
 
 Test::Synopsis::Expectation - It's new $module
