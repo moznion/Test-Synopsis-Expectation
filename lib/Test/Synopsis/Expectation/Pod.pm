@@ -1,4 +1,4 @@
-package Test::Synopsis::Detail::Pod;
+package Test::Synopsis::Expectation::Pod;
 use strict;
 use warnings;
 use parent qw/Pod::Simple::Methody/;

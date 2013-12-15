@@ -5,7 +5,7 @@ use warnings;
 use FindBin;
 use File::Spec::Functions qw/catfile/;
 
-use Test::Synopsis::Detail;
+use Test::Synopsis::Expectation;
 use Test::More;
 
 my $target_file = catfile($FindBin::Bin, 'resources', 'less.pod');

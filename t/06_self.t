@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-use Test::Synopsis::Detail;
+use Test::Synopsis::Expectation;
 use Test::More;
 
 all_synopsis_ok();

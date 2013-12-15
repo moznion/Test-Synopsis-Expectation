@@ -23,8 +23,8 @@ my %args = (
         'Module::Build' => 0.38,
     },
 
-    name            => 'Test-Synopsis-Detail',
-    module_name     => 'Test::Synopsis::Detail',
+    name            => 'Test-Synopsis-Expectation',
+    module_name     => 'Test::Synopsis::Expectation',
     allow_pureperl => 0,
 
     script_files => [glob('script/*'), glob('bin/*')],

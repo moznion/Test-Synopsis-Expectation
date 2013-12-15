@@ -12,7 +12,7 @@
       "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
       "version" : "2"
    },
-   "name" : "Test-Synopsis-Detail",
+   "name" : "Test-Synopsis-Expectation",
    "no_index" : {
       "directory" : [
          "t",
@@ -60,13 +60,13 @@
    "release_status" : "unstable",
    "resources" : {
       "bugtracker" : {
-         "web" : "https://github.com/moznion/Test-Synopsis-Detail/issues"
+         "web" : "https://github.com/moznion/Test-Synopsis-Expectation/issues"
       },
-      "homepage" : "https://github.com/moznion/Test-Synopsis-Detail",
+      "homepage" : "https://github.com/moznion/Test-Synopsis-Expectation",
       "repository" : {
          "type" : "git",
-         "url" : "git://github.com/moznion/Test-Synopsis-Detail.git",
-         "web" : "https://github.com/moznion/Test-Synopsis-Detail"
+         "url" : "git://github.com/moznion/Test-Synopsis-Expectation.git",
+         "web" : "https://github.com/moznion/Test-Synopsis-Expectation"
       }
    },
    "version" : "0.01"

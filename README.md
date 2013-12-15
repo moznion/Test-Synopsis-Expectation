@@ -1,15 +1,15 @@
 # NAME
 
-Test::Synopsis::Detail - It's new $module
+Test::Synopsis::Expectation - It's new $module
 
 # SYNOPSIS
 
-    use Test::Synopsis::Detail;
+    use Test::Synopsis::Expectation;
     my $sum = 1; # => 1
 
 # DESCRIPTION
 
-Test::Synopsis::Detail is ...
+Test::Synopsis::Expectation is ...
 
 # LICENSE
 

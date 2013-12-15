@@ -1,4 +1,4 @@
-package Test::Synopsis::Detail;
+package Test::Synopsis::Expectation;
 use 5.008005;
 use strict;
 use warnings;
@@ -6,7 +6,7 @@ use parent qw/Test::Builder::Module/;
 use Compiler::Lexer;
 use ExtUtils::Manifest qw/maniread/;
 use Test::More ();
-use Test::Synopsis::Detail::Pod;
+use Test::Synopsis::Expectation::Pod;
 
 our $VERSION = "0.01";
 our @EXPORT  = qw/all_synopsis_ok synopsis_ok/;
@@ -39,7 +39,7 @@ sub _synopsis_ok {
 
     local $Test::Builder::Level = $Test::Builder::Level + 1;
 
-    my $parser = Test::Synopsis::Detail::Pod->new;
+    my $parser = Test::Synopsis::Expectation::Pod->new;
     $parser->parse_file($file);
 
     my $expectations = _analyze_expectations($parser->{target_code});
@@ -115,16 +115,16 @@ __END__
 
 =head1 NAME
 
-Test::Synopsis::Detail - It's new $module
+Test::Synopsis::Expectation - It's new $module
 
 =head1 SYNOPSIS
 
-    use Test::Synopsis::Detail;
+    use Test::Synopsis::Expectation;
     my $sum = 1; # => 1
 
 =head1 DESCRIPTION
 
-Test::Synopsis::Detail is ...
+Test::Synopsis::Expectation is ...
 
 =head1 LICENSE
 
