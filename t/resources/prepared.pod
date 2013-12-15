@@ -1,0 +1,11 @@
+=head1 NAME
+
+prepared - prepare!
+
+=head1 SYNOPSIS
+
+    $foo; # => 1
+
+=head1 AUTHOR
+
+moznion E<lt>moznion@gmail.comE<gt>

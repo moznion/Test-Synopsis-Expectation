@@ -10,6 +10,12 @@ use Test::Synopsis::Detail::Pod;
 our $VERSION = "0.01";
 our @EXPORT  = qw/synopsis_ok/;
 
+my $prepared = '';
+
+sub prepare {
+    $prepared = shift;
+}
+
 sub synopsis_ok {
     my ($files) = @_;
 
@@ -52,7 +58,7 @@ sub _analyze_expectations {
 
     my $lexer = Compiler::Lexer->new({verbose => 1});
 
-    my $code = '';    # code for test
+    my $code = $prepared || ''; # code for test
     my @expectations; # store expectations for test
     foreach my $line (split /\n\r?/, $target_code) {
         my $tokens = $lexer->tokenize($line);
