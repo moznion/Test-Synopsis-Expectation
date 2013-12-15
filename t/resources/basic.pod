@@ -16,7 +16,7 @@ basic - It's basic
 
     my $obj = {
         foo => ["bar", "baz"],
-    }; # => is_deeply { foo => ["bar", "baz"] };
+    }; # => is_deeply { foo => ["bar", "baz"] }
 
 =head1 AUTHOR
 
