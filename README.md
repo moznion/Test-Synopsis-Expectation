@@ -135,6 +135,16 @@ Thus, following code is valid.
     ...
     $foo = 1; # => 1
 
+It cannot put test case in for(each) statement.
+
+    # Example of not working
+    for (1..10) {
+        my $foo = $_; # => 10
+    }
+
+This example doesn't work. On the contrary, it will be error.
+(Probably nobody uses such as this way... I think.)
+
 # LICENSE
 
 Copyright (C) moznion.

@@ -73,12 +73,17 @@ sub _analyze_expectations {
 
     my $lexer = Compiler::Lexer->new({verbose => 1});
 
+    my $deficient_brace = 0;
     my $code = $prepared || ''; # code for test
     my @expectations; # store expectations for test
     foreach my $line (split /\n\r?/, $target_code) {
         my $tokens = $lexer->tokenize($line);
         next if (grep {$_->{name} eq 'ToDo'} @$tokens); # Ignore yada-yada operator
         $code .= "$line\n";
+
+        # Count the number of left braces to complete deficient right braces
+        $deficient_brace++ if (grep {$_->{name} eq 'LeftBrace'}  @$tokens);
+        $deficient_brace-- if (grep {$_->{name} eq 'RightBrace'} @$tokens);
 
         # Extract comment statement
         # Tokens contain one comment token on a line, at the most
@@ -98,7 +103,7 @@ sub _analyze_expectations {
             push @expectations, +{
                 'method'   => $method || 'is',
                 'expected' => $expectation,
-                'code'     => $code,
+                'code'     => $code . ('}' x $deficient_brace),
             };
         }
     }
@@ -265,6 +270,16 @@ Thus, following code is valid.
     my $foo;
     ...
     $foo = 1; # => 1
+
+It cannot put test case in for(each) statement.
+
+    # Example of not working
+    for (1..10) {
+        my $foo = $_; # => 10
+    }
+
+This example doesn't work. On the contrary, it will be error.
+(Probably nobody uses such as this way... I think.)
 
 =head1 LICENSE
 
