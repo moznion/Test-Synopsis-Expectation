@@ -88,7 +88,7 @@ sub _analyze_target_code {
     my $deficient_brace = 0;
     my $code = $prepared || ''; # code for test
     my @expectations; # store expectations for test
-    foreach my $line (split /\n\r?/, $target_code) {
+    for my $line (split /\n\r?/, $target_code) {
         my $tokens = $lexer->tokenize($line);
         next if (grep {$_->{name} eq 'ToDo'} @$tokens); # Ignore yada-yada operator
         $code .= "$line\n";
