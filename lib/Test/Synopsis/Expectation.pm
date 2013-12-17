@@ -42,10 +42,22 @@ sub _synopsis_ok {
     my $parser = Test::Synopsis::Expectation::Pod->new;
     $parser->parse_file($file);
 
-    my $expectations = _analyze_target_code($parser->{target_code});
+    my ($expectations, $code) = _analyze_target_code($parser->{target_code});
 
+    _check_syntax($code);
     for my $expectation (@$expectations) {
         _check_with_expectation($expectation);
+    }
+}
+
+sub _check_syntax {
+    package Test::Synopsis::Expectation::Sandbox;
+    eval $_[0]; ## no critic
+    if ($@) {
+        Test::More::fail;
+    }
+    else {
+        Test::More::pass;
     }
 }
 
@@ -108,7 +120,7 @@ sub _analyze_target_code {
         }
     }
 
-    return \@expectations;
+    return (\@expectations, $code);
 }
 
 sub _list_up_files_from_manifest {
