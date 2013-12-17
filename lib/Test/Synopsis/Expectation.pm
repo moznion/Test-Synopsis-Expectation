@@ -42,14 +42,14 @@ sub _synopsis_ok {
     my $parser = Test::Synopsis::Expectation::Pod->new;
     $parser->parse_file($file);
 
-    my $expectations = _analyze_expectations($parser->{target_code});
+    my $expectations = _analyze_target_code($parser->{target_code});
 
     for my $expectation (@$expectations) {
-        _check($expectation);
+        _check_with_expectation($expectation);
     }
 }
 
-sub _check {
+sub _check_with_expectation {
     package Test::Synopsis::Expectation::Sandbox;
 
     # $_[0] is expectation
@@ -68,7 +68,7 @@ sub _check {
     }
 }
 
-sub _analyze_expectations {
+sub _analyze_target_code {
     my ($target_code) = @_;
 
     my $lexer = Compiler::Lexer->new({verbose => 1});
