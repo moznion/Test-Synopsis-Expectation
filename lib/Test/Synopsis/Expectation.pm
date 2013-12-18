@@ -6,7 +6,7 @@ use parent qw/Test::Builder::Module/;
 
 my @test_more_exports;
 BEGIN { @test_more_exports = (qw/done_testing/) }
-use Compiler::Lexer;
+use PPI::Tokenizer;
 use ExtUtils::Manifest qw/maniread/;
 use Test::More import => \@test_more_exports;
 use Test::Synopsis::Expectation::Pod;
@@ -88,27 +88,28 @@ sub _check_with_expectation {
 sub _analyze_target_code {
     my ($target_code) = @_;
 
-    my $lexer = Compiler::Lexer->new({verbose => 1});
-
     my $deficient_brace = 0;
     my $code = $prepared || ''; # code for test
     my @expectations; # store expectations for test
     for my $line (split /\n\r?/, $target_code) {
-        my $tokens = $lexer->tokenize($line);
-        next if (grep {$_->{name} eq 'ToDo'} @$tokens); # Ignore yada-yada operator
+        my $tokens = PPI::Tokenizer->new(\$line)->all_tokens;
+
+        if (grep {$_->{content} eq '...' && $_->isa('PPI::Token::Operator')} @$tokens) {
+            next;
+        }
         $code .= "$line\n";
 
         # Count the number of left braces to complete deficient right braces
-        $deficient_brace++ if (grep {$_->{name} eq 'LeftBrace'}  @$tokens);
-        $deficient_brace-- if (grep {$_->{name} eq 'RightBrace'} @$tokens);
+        $deficient_brace++ if (grep {$_->{content} eq '{' && $_->isa('PPI::Token::Structure')}  @$tokens);
+        $deficient_brace-- if (grep {$_->{content} eq '}' && $_->isa('PPI::Token::Structure')}  @$tokens);
 
         # Extract comment statement
         # Tokens contain one comment token on a line, at the most
-        if (my ($comment) = grep {$_->{name} eq 'Comment'} @$tokens) {
+        if (my ($comment) = grep {$_->isa('PPI::Token::Comment')} @$tokens) {
             # Accept special comment for this module
             # e.g.
             #     # => is 42
-            my ($expectation) = $comment->{data} =~ /#\s*=>\s*(.+)/;
+            my ($expectation) = $comment->{content} =~ /#\s*=>\s*(.+)/;
             next unless $expectation;
 
             # Accept test methods as string
