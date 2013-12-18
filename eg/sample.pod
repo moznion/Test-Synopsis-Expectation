@@ -1,0 +1,22 @@
+=head1 NAME
+
+sample - This is the sample POD
+
+=head1 SYNOPSIS
+
+    my $num;
+    $num = 1; # => 1
+    ++$num;   # => is 2
+
+    use Compiler::Lexer;
+    my $lexer = Compiler::Lexer->new; # => isa 'Compiler::Lexer'
+
+    my $str = 'Hello, I love you'; # => like qr/ove/
+
+    my $obj = {
+        foo => ["bar", "baz"],
+    }; # => is_deeply { foo => ["bar", "baz"] }
+
+=head1 AUTHOR
+
+moznion E<lt>moznion@gmail.comE<gt>
