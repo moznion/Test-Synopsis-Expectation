@@ -1,0 +1,15 @@
+=head1 NAME
+
+fail - crazy!!
+
+=head1 SYNOPSIS
+
+    2; # => 1
+
+Of course following is true!
+
+    1; # => 2
+
+=head1 AUTHOR
+
+moznion E<lt>moznion@gmail.comE<gt>
