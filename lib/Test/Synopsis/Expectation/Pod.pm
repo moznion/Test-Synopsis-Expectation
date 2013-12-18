@@ -12,7 +12,7 @@ sub new {
     $parser->{in_synopsis} = 0;
     $parser->{in_verbatim} = 0;
 
-    $parser->{target_code} = '';
+    $parser->{target_codes} = [];
 
     return $parser;
 }
@@ -25,7 +25,7 @@ sub handle_text {
 
     # Target codes (that is synopsis code)
     if ($self->{in_synopsis} && $self->{in_verbatim}) {
-        $self->{target_code} = $text;
+        push @{$self->{target_codes}}, $text;
     }
 }
 
