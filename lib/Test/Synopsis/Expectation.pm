@@ -3,13 +3,16 @@ use 5.008005;
 use strict;
 use warnings;
 use parent qw/Test::Builder::Module/;
+
+my @test_more_exports;
+BEGIN { @test_more_exports = (qw/done_testing/) }
 use Compiler::Lexer;
 use ExtUtils::Manifest qw/maniread/;
-use Test::More ();
+use Test::More import => \@test_more_exports;
 use Test::Synopsis::Expectation::Pod;
 
 our $VERSION = "0.01";
-our @EXPORT  = qw/all_synopsis_ok synopsis_ok/;
+our @EXPORT  = (@test_more_exports, qw/all_synopsis_ok synopsis_ok/);
 
 my $prepared = '';
 
@@ -146,7 +149,6 @@ Test::Synopsis::Expectation - Test SYNOPSIS code with expectations
 =head1 SYNOPSIS
 
     use Test::Synopsis::Expectation;
-    use Test::More;
 
     synopsis_ok('path/to/target.pm');
     done_testing;
