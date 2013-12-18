@@ -162,7 +162,7 @@ Following, SYNOPSIS of `target.pm`
     ++$num;   # => is 2
 
     use Foo::Bar;
-    my $lexer = Foo::Bar->new; # => isa 'Compiler::Lexer'
+    my $instance = Foo::Bar->new; # => isa 'Foo::Bar'
 
     my $str = 'Hello, I love you'; # => like qr/ove/
 
