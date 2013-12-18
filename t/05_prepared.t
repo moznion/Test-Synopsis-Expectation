@@ -2,13 +2,21 @@
 
 use strict;
 use warnings;
-use FindBin;
-use File::Spec::Functions qw/catfile/;
-
 use Test::Synopsis::Expectation;
 
 Test::Synopsis::Expectation::prepare('my $foo = 1;');
-my $target_file = catfile($FindBin::Bin, 'resources', 'prepared.pod');
-synopsis_ok($target_file);
+synopsis_ok(*DATA);
 
 done_testing;
+__DATA__
+=head1 NAME
+
+prepared - prepare!
+
+=head1 SYNOPSIS
+
+    $foo; # => 1
+
+=head1 AUTHOR
+
+moznion E<lt>moznion@gmail.comE<gt>
