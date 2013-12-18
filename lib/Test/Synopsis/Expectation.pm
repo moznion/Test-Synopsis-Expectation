@@ -155,13 +155,14 @@ Test::Synopsis::Expectation - Test SYNOPSIS code with expectations
     synopsis_ok('path/to/target.pm');
     done_testing;
 
-    ### Following, SYNOPSIS of `target.pm`
-    my $sum;
-    $sum = 1; # => 1
-    ++$sum;   # => is 2
+Following, SYNOPSIS of `target.pm`
+
+    my $num;
+    $num = 1; # => 1
+    ++$num;   # => is 2
 
     use Foo::Bar;
-    my $instance = Foo::Bar->new; # => isa 'Foo::Bar'
+    my $lexer = Foo::Bar->new; # => isa 'Compiler::Lexer'
 
     my $str = 'Hello, I love you'; # => like qr/ove/
 
@@ -278,24 +279,43 @@ This carries out the same behavior as C<Test::More::is_deeply>.
 
 =back
 
-=head1 NOTES
+=head1 RESTRICTION
 
-This module ignores yada-yada operators that is in SYNOPSIS code.
-Thus, following code is valid.
+=head2 Test case must be one line
 
-    my $foo;
-    ...
-    $foo = 1; # => 1
+The following is valid;
 
-It cannot put test case in for(each) statement.
+    my $obj = {
+        foo => ["bar", "baz"],
+    }; # => is_deeply { foo => ["bar", "baz"] }
+
+However, the following is invalid;
+
+    my $obj = {
+        foo => ["bar", "baz"],
+    }; # => is_deeply {
+       #        foo => ["bar", "baz"]
+       #    }
+
+So test case must be one line.
+
+=head2 Not put test cases inside of for(each)
 
     # Example of not working
     for (1..10) {
         my $foo = $_; # => 10
     }
 
-This example doesn't work. On the contrary, it will be error.
-(Probably nobody uses such as this way... I think.)
+This example doesn't work. On the contrary, it will be error (Probably nobody uses such as this way... I think).
+
+=head1 NOTES
+
+This module ignores yada-yada operators that is in SYNOPSIS code.
+Thus, following code is runnable.
+
+    my $foo;
+    ...
+    $foo = 1; # => 1
 
 =head1 LICENSE
 
