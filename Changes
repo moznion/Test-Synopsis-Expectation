@@ -2,6 +2,10 @@ Revision history for Perl extension Test-Synopsis-Expectation
 
 {{$NEXT}}
 
+0.03 2013-12-19T16:24:36Z
+
+    - Fix some tests
+
 0.02 2013-12-19T15:44:22Z
 
     - Add checking syntax of synopsis code
