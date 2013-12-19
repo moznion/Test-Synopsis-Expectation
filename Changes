@@ -2,6 +2,13 @@ Revision history for Perl extension Test-Synopsis-Expectation
 
 {{$NEXT}}
 
+0.02 2013-12-19T15:44:22Z
+
+    - Add checking syntax of synopsis code
+    - Support SYNOPSIS that has multi part codes
+    - Change so that it is not necessary to use Test::More in each tests
+    - Change backend tokenizer to PPI
+
 0.01 2013-12-16T10:06:03Z
 
     - original version

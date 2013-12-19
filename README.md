@@ -157,6 +157,8 @@ This example doesn't work. On the contrary, it will be error (Probably nobody us
 
 # NOTES
 
+## yada-yada operator
+
 This module ignores yada-yada operators that is in SYNOPSIS code.
 Thus, following code is runnable.
 
