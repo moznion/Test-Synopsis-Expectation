@@ -1,5 +1,6 @@
 requires 'Compiler::Lexer', '0.17';
 requires 'Pod::Simple::Methody';
+requires 'PPI::Tokenizer';
 requires 'Test::Builder::Module';
 requires 'Test::More', '0.98';
 requires 'parent';
@@ -13,6 +14,7 @@ on configure => sub {
 
 on test => sub {
     requires 'Test::More', '0.98';
+    requires 'Test::Builder::Tester';
 };
 
 on develop => sub {
