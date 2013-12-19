@@ -1,4 +1,3 @@
-requires 'Compiler::Lexer', '0.17';
 requires 'Pod::Simple::Methody';
 requires 'PPI::Tokenizer';
 requires 'Test::Builder::Module';

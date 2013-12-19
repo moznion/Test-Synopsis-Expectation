@@ -16,18 +16,6 @@ our @EXPORT  = (@test_more_exports, qw/all_synopsis_ok synopsis_ok/);
 
 my $prepared = '';
 
-sub import {
-    my ($class, $mode) = @_;
-
-    if ($mode && $mode eq ':fast') {
-        require Compiler::Lexer;
-        undef *Test::Synopsis::Expectation::_analyze_target_code;
-        *Test::Synopsis::Expectation::_analyze_target_code = *Test::Synopsis::Expectation::_analyze_target_code_fast;
-    }
-
-    __PACKAGE__->export_to_level(1);
-}
-
 sub prepare {
     $prepared = shift;
 }
@@ -122,49 +110,6 @@ sub _analyze_target_code {
             # e.g.
             #     # => is 42
             my ($expectation) = $comment->{content} =~ /#\s*=>\s*(.+)/;
-            next unless $expectation;
-
-            # Accept test methods as string
-            my $method;
-            if ($expectation =~ s/^(is|isa|is_deeply|like)\s// && $1) {
-                $method = $1;
-            }
-
-            push @expectations, +{
-                'method'   => $method || 'is',
-                'expected' => $expectation,
-                'code'     => $code . ('}' x $deficient_brace),
-            };
-        }
-    }
-
-    return (\@expectations, $code);
-}
-
-sub _analyze_target_code_fast {
-    my ($target_code) = @_;
-
-    my $lexer = Compiler::Lexer->new({verbose => 1});
-
-    my $deficient_brace = 0;
-    my $code = $prepared || ''; # code for test
-    my @expectations; # store expectations for test
-    for my $line (split /\n\r?/, $target_code) {
-        my $tokens = $lexer->tokenize($line);
-        next if (grep {$_->{name} eq 'ToDo'} @$tokens); # Ignore yada-yada operator
-        $code .= "$line\n";
-
-        # Count the number of left braces to complete deficient right braces
-        $deficient_brace++ if (grep {$_->{name} eq 'LeftBrace'}  @$tokens);
-        $deficient_brace-- if (grep {$_->{name} eq 'RightBrace'} @$tokens);
-
-        # Extract comment statement
-        # Tokens contain one comment token on a line, at the most
-        if (my ($comment) = grep {$_->{name} eq 'Comment'} @$tokens) {
-            # Accept special comment for this module
-            # e.g.
-            #     # => is 42
-            my ($expectation) = $comment->{data} =~ /#\s*=>\s*(.+)/;
             next unless $expectation;
 
             # Accept test methods as string
@@ -365,6 +310,8 @@ So test case must be one line.
 This example doesn't work. On the contrary, it will be error (Probably nobody uses such as this way... I think).
 
 =head1 NOTES
+
+=head2 yada-yada operator
 
 This module ignores yada-yada operators that is in SYNOPSIS code.
 Thus, following code is runnable.
