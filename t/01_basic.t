@@ -18,8 +18,8 @@ basic - It's basic
     ++$sum;   # => is 2
     ++$sum;   #=>is 3
 
-    use Compiler::Lexer;
-    my $lexer = Compiler::Lexer->new; # => isa 'Compiler::Lexer'
+    use PPI::Tokenizer;
+    my $tokenizer = PPI::Tokenizer->new(\'code'); # => isa 'PPI::Tokenizer'
 
     my $str = 'Hello, I love you'; # => like qr/ove/
 

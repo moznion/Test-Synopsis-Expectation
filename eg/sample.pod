@@ -8,8 +8,8 @@ sample - This is the sample POD
     $num = 1; # => 1
     ++$num;   # => is 2
 
-    use Compiler::Lexer;
-    my $lexer = Compiler::Lexer->new; # => isa 'Compiler::Lexer'
+    use PPI::Tokenizer;
+    my $tokenizer = PPI::Tokenizer->new(\'code'); # => isa 'PPI::Tokenizer'
 
     my $str = 'Hello, I love you'; # => like qr/ove/
 
