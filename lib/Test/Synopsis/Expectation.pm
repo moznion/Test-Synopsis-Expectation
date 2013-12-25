@@ -45,13 +45,16 @@ sub _synopsis_ok {
     my $parser = Test::Synopsis::Expectation::Pod->new;
     $parser->parse_file($file);
 
+    my $block_num = 1;
     for my $target_code (@{$parser->{target_codes}}) {
         my ($expectations, $code) = _analyze_target_code($target_code);
 
-        _check_syntax($code);
+        _check_syntax($code, $block_num, $file);
         for my $expectation (@$expectations) {
-            _check_with_expectation($expectation);
+            _check_with_expectation($expectation, $block_num, $file);
         }
+
+        $block_num++;
     }
 }
 
@@ -59,10 +62,10 @@ sub _check_syntax {
     package Test::Synopsis::Expectation::Sandbox;
     eval $_[0]; ## no critic
     if ($@) {
-        Test::More::fail;
+        Test::More::fail("Syntax OK: $_[2] (SYNOPSIS Block: $_[1])");
     }
     else {
-        Test::More::pass;
+        Test::More::pass("Syntax OK: $_[2] (SYNOPSIS Block: $_[1])");
     }
 }
 
@@ -73,7 +76,7 @@ sub _check_with_expectation {
     my $got       = eval $_[0]->{code};     ## no critic
     my $expected  = eval $_[0]->{expected}; ## no critic
     my $method    = $_[0]->{method};
-    my $test_name = "line: $_[0]->{line_num}";
+    my $test_name = "$_[2] (SYNOPSIS Block: $_[1], Line: $_[0]->{line_num})";
 
     if ($method eq 'is') {
         Test::More::is($got, $expected, $test_name);
