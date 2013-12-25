@@ -70,18 +70,19 @@ sub _check_with_expectation {
     package Test::Synopsis::Expectation::Sandbox;
 
     # $_[0] is expectation
-    my $got      = eval $_[0]->{code};     ## no critic
-    my $expected = eval $_[0]->{expected}; ## no critic
-    my $method   = $_[0]->{method};
+    my $got       = eval $_[0]->{code};     ## no critic
+    my $expected  = eval $_[0]->{expected}; ## no critic
+    my $method    = $_[0]->{method};
+    my $test_name = "line: $_[0]->{line_num}";
 
     if ($method eq 'is') {
-        Test::More::is($got, $expected);
+        Test::More::is($got, $expected, $test_name);
     } elsif ($method eq 'isa') {
-        Test::More::isa_ok($got, $expected);
+        Test::More::isa_ok($got, $expected, $test_name);
     } elsif ($method eq 'like') {
-        Test::More::like($got, $expected);
+        Test::More::like($got, $expected, $test_name);
     } elsif ($method eq 'is_deeply') {
-        Test::More::is_deeply($got, $expected);
+        Test::More::is_deeply($got, $expected, $test_name);
     }
 }
 
@@ -91,6 +92,7 @@ sub _analyze_target_code {
     my $deficient_brace = 0;
     my $code = $prepared || ''; # code for test
     my @expectations; # store expectations for test
+    my $line_num = 1;
     for my $line (split /\n\r?/, $target_code) {
         my $tokens = PPI::Tokenizer->new(\$line)->all_tokens;
 
@@ -122,8 +124,11 @@ sub _analyze_target_code {
                 'method'   => $method || 'is',
                 'expected' => $expectation,
                 'code'     => $code . ('}' x $deficient_brace),
+                'line_num' => $line_num,
             };
         }
+
+        $line_num++;
     }
 
     return (\@expectations, $code);
