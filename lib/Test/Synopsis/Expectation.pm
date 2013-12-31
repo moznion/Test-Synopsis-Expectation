@@ -15,9 +15,17 @@ our $VERSION = "0.04";
 our @EXPORT  = (@test_more_exports, qw/all_synopsis_ok synopsis_ok/);
 
 my $prepared = '';
+my $ignorings = [];
 
 sub prepare {
     $prepared = shift;
+}
+
+sub set_ignorings {
+    $ignorings = shift;
+    $ignorings = [$ignorings] if ref $ignorings ne 'ARRAY';
+
+    return $ignorings;
 }
 
 sub all_synopsis_ok {
@@ -102,6 +110,11 @@ sub _analyze_target_code {
         if (grep {$_->{content} eq '...' && $_->isa('PPI::Token::Operator')} @$tokens) {
             next;
         }
+
+        for my $ignoring (@$ignorings) {
+            $line =~ s/\Q$ignoring\E//g;
+        }
+
         $code .= "$line\n";
 
         # Count the number of left braces to complete deficient right braces
