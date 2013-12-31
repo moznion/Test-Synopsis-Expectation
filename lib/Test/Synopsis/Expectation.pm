@@ -220,7 +220,6 @@ Register the executable codes to prepare for evaluation.
 If you use like;
 
     use Test::Synopsis::Expectation;
-    use Test::More;
     Test::Synopsis::Expectation::prepare('my $foo = 1;');
     synopsis_ok('path/to/target.pm');
     done_testing;
@@ -234,6 +233,25 @@ Then, SYNOPSIS of F<target.pm> is the same as;
     $foo; # => 1
 
 (This function is not exported)
+
+=item * set_ignorings
+
+Set the procedures which would like to ignore.
+
+    use Test::Synopsis::Expectation;
+    Test::Synopsis::Expectation::set_ignorings(['++$num;']);
+    synopsis_ok(*DATA);
+    done_testing;
+
+    __DATA__
+    =head1 SYNOPSIS
+
+        my $num;
+        $num = 1; # => 1
+        ++$num;
+        $num; # => 1
+
+In the above example, C<++$num;> will be ignored.
 
 =back
 
