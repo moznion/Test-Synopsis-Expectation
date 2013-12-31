@@ -11,13 +11,16 @@ sub new {
     $parser->{in_head1}    = 0;
     $parser->{in_synopsis} = 0;
     $parser->{in_verbatim} = 0;
+    $parser->{no_test}     = 0;
 
     $parser->{target_codes} = [];
+
+    $parser->accept_target_as_text(qw/test_synopsis_expectation_no_test/);
 
     return $parser;
 }
 
-sub handle_text {
+sub _handle_text {
     my($self, $text) = @_;
     if ($self->{in_head1} && $text =~ /^synopsis$/i) {
         $self->{in_synopsis} = 1;
@@ -25,32 +28,38 @@ sub handle_text {
 
     # Target codes (that is synopsis code)
     if ($self->{in_synopsis} && $self->{in_verbatim}) {
-        push @{$self->{target_codes}}, $text;
+        unless ($self->{no_test}) {
+            push @{$self->{target_codes}}, $text;
+        }
+        $self->{no_test} = 0;
     }
 }
 
-sub start_head1 {
-    my($self) = @_;
+sub _handle_element_start {
+    my ($self, $element_name, $attr_hash_r) = @_;
 
-    $self->{in_head1}    = 1;
-    $self->{in_synopsis} = 0;
+    if ($element_name eq 'head1') {
+        $self->{in_head1}    = 1;
+        $self->{in_synopsis} = 0;
+    }
+    elsif ($element_name eq 'Verbatim') {
+        $self->{in_verbatim} = 1;
+    }
+    elsif ($element_name eq 'for') {
+        if ($attr_hash_r->{target} eq 'test_synopsis_expectation_no_test') {
+            $self->{no_test} = 1;
+        }
+    }
 }
 
-sub end_head1 {
-    my($self) = @_;
+sub _handle_element_end {
+    my ($self, $element_name, $attr_hash_r) = @_;
 
-    $self->{in_head1} = 0;
-}
-
-sub start_Verbatim {
-    my($self) = @_;
-
-    $self->{in_verbatim} = 1;
-}
-
-sub end_Verbatim {
-    my($self) = @_;
-
-    $self->{in_verbatim} = 0;
+    if ($element_name eq 'head1') {
+        $self->{in_head1} = 0;
+    }
+    elsif ($element_name eq 'Verbatim') {
+        $self->{in_verbatim} = 0;
+    }
 }
 1;
