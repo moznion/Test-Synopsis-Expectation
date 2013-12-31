@@ -53,7 +53,7 @@ sub _handle_element_start {
 }
 
 sub _handle_element_end {
-    my ($self, $element_name, $attr_hash_r) = @_;
+    my ($self, $element_name) = @_;
 
     if ($element_name eq 'head1') {
         $self->{in_head1} = 0;

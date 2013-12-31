@@ -11,7 +11,7 @@ use ExtUtils::Manifest qw/maniread/;
 use Test::More import => \@test_more_exports;
 use Test::Synopsis::Expectation::Pod;
 
-our $VERSION = "0.04";
+our $VERSION = "0.10";
 our @EXPORT  = (@test_more_exports, qw/all_synopsis_ok synopsis_ok/);
 
 my $prepared = '';
