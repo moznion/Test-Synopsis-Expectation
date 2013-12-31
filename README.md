@@ -7,17 +7,17 @@ Test::Synopsis::Expectation - Test SYNOPSIS code with expectations
 
     use Test::Synopsis::Expectation;
 
-    synopsis_ok('path/to/target.pm');
+    synopsis_ok('eg/sample.pod');
     done_testing;
 
-Following, SYNOPSIS of \`target.pm\`
+Following, SYNOPSIS of `eg/sample.pod`
 
     my $num;
     $num = 1; # => 1
     ++$num;   # => is 2
 
-    use Foo::Bar;
-    my $instance = Foo::Bar->new; # => isa 'Foo::Bar'
+    use PPI::Tokenizer;
+    my $tokenizer = PPI::Tokenizer->new(\'code'); # => isa 'PPI::Tokenizer'
 
     my $str = 'Hello, I love you'; # => like qr/ove/
 
@@ -51,7 +51,6 @@ This module can check the SYNOPSIS is valid syntax or not, and tests whether the
     If you use like;
 
         use Test::Synopsis::Expectation;
-        use Test::More;
         Test::Synopsis::Expectation::prepare('my $foo = 1;');
         synopsis_ok('path/to/target.pm');
         done_testing;
@@ -65,6 +64,25 @@ This module can check the SYNOPSIS is valid syntax or not, and tests whether the
         $foo; # => 1
 
     (This function is not exported)
+
+- set\_ignorings
+
+    Set the procedures which would like to ignore.
+
+        use Test::Synopsis::Expectation;
+        Test::Synopsis::Expectation::set_ignorings(['++$num;']);
+        synopsis_ok(*DATA);
+        done_testing;
+
+        __DATA__
+        =head1 SYNOPSIS
+
+            my $num;
+            $num = 1; # => 1
+            ++$num;
+            $num; # => 1
+
+    In the above example, `++$num;` will be ignored.
 
 # NOTATION OF EXPECTATION
 
@@ -125,6 +143,22 @@ Comment that starts at `# =>` then this module treats the comment as test statem
         is_deeply $obj, { foo => ["bar", "baz"] };
 
     This carries out the same behavior as `Test::More::is_deeply`.
+
+# ANNOTATIONS
+
+- =for test\_synopsis\_expectation\_no\_test
+
+    The code block behind this annotation will not be tested.
+
+            my $sum;
+            $sum = 1; # => 1
+
+        =for test_synopsis_expectation_no_test
+
+            my $sum;
+            $sum = 1; # => 2
+
+    In this example, the first code block will be tested, but the second will not.
 
 # RESTRICTION
 
