@@ -196,6 +196,8 @@ Following, SYNOPSIS of F<eg/sample.pod>
         foo => ["bar", "baz"],
     }; # => is_deeply { foo => ["bar", "baz"] }
 
+    my $bool = 1; # => success
+
 =head1 DESCRIPTION
 
 Test::Synopsis::Expectation is the test module to test the SYNOPSIS code with expectations.
@@ -320,6 +322,14 @@ This way is equivalent to the next.
     is_deeply $obj, { foo => ["bar", "baz"] };
 
 This carries out the same behavior as C<Test::More::is_deeply>.
+
+=item * # => success
+
+    my $bool = 1;
+    $bool; # => success
+
+This way checks value as boolean.
+If target value of testing is 0 then this test will fail. Otherwise, it will pass.
 
 =back
 
