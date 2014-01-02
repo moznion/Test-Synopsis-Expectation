@@ -94,6 +94,8 @@ sub _check_with_expectation {
         Test::More::like($got, $expected, $test_name);
     } elsif ($method eq 'is_deeply') {
         Test::More::is_deeply($got, $expected, $test_name);
+    } elsif ($method eq 'success') {
+        Test::More::ok($got, $test_name);
     }
 }
 
@@ -132,8 +134,8 @@ sub _analyze_target_code {
 
             # Accept test methods as string
             my $method;
-            if ($expectation =~ s/^(is|isa|is_deeply|like)\s// && $1) {
-                $method = $1;
+            if ($expectation =~ s/^(?:(is|isa|is_deeply|like)\s|(success))//) {
+                $method = $1 || $2;
             }
 
             push @expectations, +{

@@ -27,6 +27,8 @@ basic - It's basic
         foo => ["bar", "baz"],
     }; # => is_deeply { foo => ["bar", "baz"] }
 
+    $sum; # => success
+
 =head1 AUTHOR
 
 moznion E<lt>moznion@gmail.comE<gt>

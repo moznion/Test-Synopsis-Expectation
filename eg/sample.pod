@@ -17,6 +17,8 @@ sample - This is the sample POD
         foo => ["bar", "baz"],
     }; # => is_deeply { foo => ["bar", "baz"] }
 
+    my $bool = 1; # => success
+
 =head1 AUTHOR
 
 moznion E<lt>moznion@gmail.comE<gt>
