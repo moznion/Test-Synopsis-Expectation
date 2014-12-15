@@ -2,6 +2,9 @@ Revision history for Perl extension Test-Synopsis-Expectation
 
 {{$NEXT}}
 
+    - Added SEE ALSO section, with links to Test::Synopsis,
+      and the Dist::Zilla plugin based on it.
+
 0.11 2014-01-02T17:03:39Z
 
     - Add `success` notation

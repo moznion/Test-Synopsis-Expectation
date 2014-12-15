@@ -393,6 +393,13 @@ Thus, following code is runnable.
     ...
     $foo = 1; # => 1
 
+=head1 SEE ALSO
+
+L<Test::Synopsis> - simpler module, which just checks the syntax of your SYNOPSIS section.
+
+L<Dist::Zilla::Plugin::Test::Synopsis> - a plugin for L<Dist::Zilla> users, which adds a release test
+to your distribution, based on L<Test::Synopsis>.
+
 =head1 LICENSE
 
 Copyright (C) moznion.
