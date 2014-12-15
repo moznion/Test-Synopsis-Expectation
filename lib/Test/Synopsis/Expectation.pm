@@ -401,6 +401,10 @@ L<Test::Synopsis> - simpler module, which just checks the syntax of your SYNOPSI
 L<Dist::Zilla::Plugin::Test::Synopsis> - a plugin for L<Dist::Zilla> users, which adds a release test
 to your distribution, based on L<Test::Synopsis>.
 
+=head1 REPOSITORY
+
+L<https://github.com/moznion/Test-Synopsis-Expectation>
+
 =head1 LICENSE
 
 Copyright (C) moznion.
