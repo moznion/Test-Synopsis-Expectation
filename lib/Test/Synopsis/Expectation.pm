@@ -170,7 +170,7 @@ __END__
 
 =head1 NAME
 
-Test::Synopsis::Expectation - Test SYNOPSIS code with expectations
+Test::Synopsis::Expectation - Test that SYNOPSIS code produces expected results
 
 =head1 SYNOPSIS
 
@@ -200,8 +200,9 @@ Following, SYNOPSIS of F<eg/sample.pod>
 
 =head1 DESCRIPTION
 
-Test::Synopsis::Expectation is the test module to test the SYNOPSIS code with expectations.
-This module can check the SYNOPSIS is valid syntax or not, and tests whether the result is suitable for expected.
+This module checks that a module's SYNOPSIS section is syntactically correct,
+and will also check that it produces the expected results,
+based on annotations you add in comments.
 
 =head1 FUNCTIONS
 
@@ -392,6 +393,17 @@ Thus, following code is runnable.
     my $foo;
     ...
     $foo = 1; # => 1
+
+=head1 SEE ALSO
+
+L<Test::Synopsis> - simpler module, which just checks the syntax of your SYNOPSIS section.
+
+L<Dist::Zilla::Plugin::Test::Synopsis> - a plugin for L<Dist::Zilla> users, which adds a release test
+to your distribution, based on L<Test::Synopsis>.
+
+=head1 REPOSITORY
+
+L<https://github.com/moznion/Test-Synopsis-Expectation>
 
 =head1 LICENSE
 
