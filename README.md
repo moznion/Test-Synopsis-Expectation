@@ -1,7 +1,7 @@
-[![Build Status](https://travis-ci.org/moznion/Test-Synopsis-Expectation.png?branch=master)](https://travis-ci.org/moznion/Test-Synopsis-Expectation) [![Coverage Status](https://coveralls.io/repos/moznion/Test-Synopsis-Expectation/badge.png?branch=master)](https://coveralls.io/r/moznion/Test-Synopsis-Expectation?branch=master)
+[![Build Status](https://travis-ci.org/moznion/Test-Synopsis-Expectation.svg?branch=master)](https://travis-ci.org/moznion/Test-Synopsis-Expectation) [![Coverage Status](https://img.shields.io/coveralls/moznion/Test-Synopsis-Expectation/master.svg)](https://coveralls.io/r/moznion/Test-Synopsis-Expectation?branch=master)
 # NAME
 
-Test::Synopsis::Expectation - Test SYNOPSIS code with expectations
+Test::Synopsis::Expectation - Test that SYNOPSIS code produces expected results
 
 # SYNOPSIS
 
@@ -29,8 +29,9 @@ Following, SYNOPSIS of `eg/sample.pod`
 
 # DESCRIPTION
 
-Test::Synopsis::Expectation is the test module to test the SYNOPSIS code with expectations.
-This module can check the SYNOPSIS is valid syntax or not, and tests whether the result is suitable for expected.
+This module checks that a module's SYNOPSIS section is syntactically correct,
+and will also check that it produces the expected results,
+based on annotations you add in comments.
 
 # FUNCTIONS
 
@@ -90,7 +91,7 @@ This module can check the SYNOPSIS is valid syntax or not, and tests whether the
 
 Comment that starts at `# =>` then this module treats the comment as test statement.
 
-- \# => is
+- # => is
 
         my $foo = 1; # => is 1
 
@@ -101,13 +102,13 @@ Comment that starts at `# =>` then this module treats the comment as test statem
 
     This carries out the same behavior as `Test::More::is`.
 
-- \# =>
+- # =>
 
         my $foo = 1; # => 1
 
     This notation is the same as `# => is`
 
-- \# => isa
+- # => isa
 
         use Foo::Bar;
         my $instance = Foo::Bar->new; # => isa 'Foo::Bar'
@@ -120,7 +121,7 @@ Comment that starts at `# =>` then this module treats the comment as test statem
 
     This carries out the same behavior as `Test::More::isa_ok`.
 
-- \# => like
+- # => like
 
         my $str = 'Hello, I love you'; # => like qr/ove/
 
@@ -131,7 +132,7 @@ Comment that starts at `# =>` then this module treats the comment as test statem
 
     This carries out the same behavior as `Test::More::like`.
 
-- \# => is\_deeply
+- # => is\_deeply
 
         my $obj = {
             foo => ["bar", "baz"],
@@ -146,7 +147,7 @@ Comment that starts at `# =>` then this module treats the comment as test statem
 
     This carries out the same behavior as `Test::More::is_deeply`.
 
-- \# => success
+- # => success
 
         my $bool = 1;
         $bool; # => success
@@ -209,6 +210,17 @@ Thus, following code is runnable.
     my $foo;
     ...
     $foo = 1; # => 1
+
+# SEE ALSO
+
+[Test::Synopsis](https://metacpan.org/pod/Test::Synopsis) - simpler module, which just checks the syntax of your SYNOPSIS section.
+
+[Dist::Zilla::Plugin::Test::Synopsis](https://metacpan.org/pod/Dist::Zilla::Plugin::Test::Synopsis) - a plugin for [Dist::Zilla](https://metacpan.org/pod/Dist::Zilla) users, which adds a release test
+to your distribution, based on [Test::Synopsis](https://metacpan.org/pod/Test::Synopsis).
+
+# REPOSITORY
+
+[https://github.com/moznion/Test-Synopsis-Expectation](https://github.com/moznion/Test-Synopsis-Expectation)
 
 # LICENSE
 
